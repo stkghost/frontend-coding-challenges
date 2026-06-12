@@ -7,6 +7,7 @@ export const Toolbar = () => {
   const routerState = useRouterState();
   const isRootRoute = routerState.location.pathname === "/";
   const setPreferredHouse = useAppStore((store) => store.setPreferredHouse);
+  const preferredHouse = useAppStore((store) => store.preferredHouse)
 
   const handleHouseSelection = () => {
     setPreferredHouse(undefined);
@@ -31,6 +32,13 @@ export const Toolbar = () => {
         <h1 className="text-xl font-medium text-amber-200">The Harry Potter App</h1>
       </div>
 
+      <div className="flex items-center gap-2">
+       {preferredHouse &&(
+       <>
+          <span className="text-sm font-medium text-amber-200">{preferredHouse}</span>
+          {" "}|
+       </>  
+       )}
       <button
         onClick={handleHouseSelection}
         className="flex items-center gap-2 pr-9 text-amber-200 hover:text-amber-100"
@@ -39,6 +47,8 @@ export const Toolbar = () => {
         <span className="text-sm font-medium">Change House</span>
         <Shield size={20} />
       </button>
+      </div>
+
     </div>
   );
 };

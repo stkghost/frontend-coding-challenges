@@ -12,7 +12,9 @@ export const HousePreferenceGateway = ({ children }: HousePreferenceGatewayProps
   const preferredHouse = useAppStore((store) => store.preferredHouse);
   const setPreferredHouse = useAppStore((store) => store.setPreferredHouse);
 
-  if (preferredHouse) return <>{children}</>;
+
+  //Bug found: The If statement was just checking if there was a preferred house, and missing null since it was falsy; but actually null = "show all"
+  if (preferredHouse !== undefined) return <>{children}</>;
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 pt-30">
@@ -25,6 +27,7 @@ export const HousePreferenceGateway = ({ children }: HousePreferenceGatewayProps
           <HouseCard key={house} house={house} onClick={setPreferredHouse} />
         ))}
       </div>
+
 
       <Button onClick={() => setPreferredHouse(null)} className="self-center text-lg">
         Show all characters
